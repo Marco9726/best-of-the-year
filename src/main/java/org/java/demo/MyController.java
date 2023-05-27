@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyController {
 
 	@GetMapping("/")
-	public String getHome(Model model) {
-		
-		model.addAttribute("name", "Pinco");
+	public String getHome() {
 		
 		return "index";
 	}
@@ -26,35 +24,21 @@ public class MyController {
 	@GetMapping("/movies")
 	public String getMovies(Model model) {
 		
-		String mts = "";
+		List<Movie> movies = getBestMovies();
 		
-		for(Movie m : getBestMovies()) {
-			
-			mts += m.getTitle() + ", ";
-		}
+		model.addAttribute("movies", movies);
 		
-		mts = mts.substring(0, mts.length() - 2);
-		
-		model.addAttribute("titles", mts);
-		
-		return "titles";
+		return "movies";
 	}
 	
 	@GetMapping("/songs")
 	public String getSongs(Model model) {
 		
-		String mts = "";
+		List<Song> songs = getBestSongs();
 		
-		for(Song s : getBestSongs()) {
-			
-			mts += s.getTitle() + ", ";
-		}
+		model.addAttribute("songs", songs);
 		
-		mts = mts.substring(0, mts.length() - 2);
-		
-		model.addAttribute("titles", mts);
-		
-		return "titles";
+		return "songs";
 	}
 	
 	
@@ -62,18 +46,12 @@ public class MyController {
 	@GetMapping("/movies/{id}")
 	public String getMovie(Model model , @PathVariable("id") int id) {
 		
-		Movie resM = null;
+		Movie movie = getMovieById(id);
 		
-		for(Movie m : getBestMovies()) {
-			
-			if (m.getId() == id )
-				resM = m;
-			
-			if (resM != null)
-				model.addAttribute("titles", resM.getTitle());
-		}
+		if (movie != null)
+			model.addAttribute("movie", movie);
 		
-		return "titles";
+		return "movie";
 	}
 	
 	@GetMapping("/songs/{id}")
@@ -116,6 +94,19 @@ public class MyController {
 				new Song(4, "Song 4"),
 				new Song(5, "Song 5")
 		});
+	}
+	
+	private Movie getMovieById(int id) {
+		
+		Movie resM = null;
+		
+		for(Movie m : getBestMovies()) {
+			
+			if (m.getId() == id )
+				resM = m;
+		}
+		
+		return resM;
 	}
 	
 	

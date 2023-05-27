@@ -7,13 +7,19 @@
 		<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
 	</head>
 	<body>
-		<th:block th:replace="frag/header :: header(true, true)" ></th:block>
+		<th:block th:replace="frag/header :: header(true,false)" ></th:block>
+		<h1 class="bg-success">songs</h1>
 		
-		<br>
-		
-		<h1>Best of by</h1>
-		<img width="250px" th:src="@{https://twobudgettravelers.com/wp-content/uploads/2022/02/10-must-watch-movies-of-all-time-for-kids.jpg}">
-		
+		<ul>
+			<li
+				th:each="song : ${songs}"
+				th:object="${song}"
+				th:text="${song.title}"
+			>
+				
+				
+			</li>
+		</ul>
 		
 		<script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}"></script>
 	</body>
