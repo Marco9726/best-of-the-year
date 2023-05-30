@@ -6,12 +6,13 @@
 </head>
 <body>
 	<div
-		th:fragment="header(isMovie, isSong)"
+		th:fragment="header(isMovie, isSong, isHome)"
 	>
 	
 		<h2>Best of</h2>
-		<a  th:if="${isMovie}" th:href="@{/movies}">Movies</a>
-		<a  th:if="${isSong}" th:href="@{/songs}">Songs</a>
+		<a  th:unless="${isMovie}" th:href="@{/movies}">Movies</a>
+		<a  th:unless="${isSong}" th:href="@{/songs}">Songs</a>
+		<a  th:unless="${isHome}" th:href="@{/}">Home</a>
 	</div>
 </body>
 </html>

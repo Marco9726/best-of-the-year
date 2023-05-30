@@ -57,18 +57,11 @@ public class MyController {
 	@GetMapping("/songs/{id}")
 	public String getSong(Model model , @PathVariable("id") int id) {
 		
-		Song resS = null;
+		Song song = getSongById(id);
 		
-		for(Song s : getBestSongs()) {
-			
-			if (s.getId() == id )
-				resS = s;
-			
-			if (resS != null)
-				model.addAttribute("titles", resS.getTitle());
-		}
+		model.addAttribute("song", song);
 		
-		return "titles";
+		return "song";
 	}
 	
 	
@@ -98,15 +91,28 @@ public class MyController {
 	
 	private Movie getMovieById(int id) {
 		
-		Movie resM = null;
+		Movie movie = null;
 		
 		for(Movie m : getBestMovies()) {
 			
 			if (m.getId() == id )
-				resM = m;
+				movie = m;
 		}
 		
-		return resM;
+		return movie;
+	}
+	
+	private Song getSongById(int id) {
+		
+		Song song = null;
+		
+		for(Song s : getBestSongs()) {
+			
+			if (s.getId() == id )
+				song = s;
+		}
+		
+		return song;
 	}
 	
 	

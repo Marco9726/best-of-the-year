@@ -6,22 +6,13 @@
 		<link rel="stylesheet" th:href="@{/css/style.css}">
 		<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
 	</head>
-	<body>
-		<th:block th:replace="frag/header :: header(false, true, false)" ></th:block>
-		<h1 class="bg-success">songs</h1>
+	<body th:object="${song}">
+		<th:block th:replace="frag/header :: header(false, false, false)" ></th:block>
 		
-		<ul>
-			<li
-				th:each="song : ${songs}"
-				th:object="${song}"
-			>
-				<a th:href="@{/songs/{id} (id=${song.id})}" 
-					class="btn btn-outline-dark px-5 py-2">
-					[[ *{title} ]]
-				</a>
-				
-			</li>
-		</ul>
+		<!-- <h1 th:unless="${song = null}">[[ #{song}]]: [[ *{title} ]]</h1>
+		<h1 th:if="${song == null}"> [[ #{songNotFound} ]]</h1> -->
+	
+		<h1>[[ *{title} ]]</h1>
 		
 		<script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js}"></script>
 	</body>
